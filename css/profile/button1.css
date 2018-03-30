@@ -1,0 +1,27 @@
+.button1{
+	background-color: #1161ee; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	border-radius: 15px;
+    font-size: 10px;
+}
+
+.button2{
+	background-color: #1161ee; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	border-radius: 15px;
+    font-size: 10px;
+	left:90%;
+	/*margin-right: 2.5cm;
+	float: right;*/
+/*	style="float:right;margin-right: 4.5cm;" */
+}
