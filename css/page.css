@@ -1,0 +1,26 @@
+.pagination {
+    display: inline-block;
+	background-color: #ceb9cb;
+	 border-radius: 5px/4px;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 3px 3px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 4px;
+}
+
+ul.nav a { cursor: pointer; }
+.active { color:#f00;font-weight:bolder; }

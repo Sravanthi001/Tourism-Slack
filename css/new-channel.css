@@ -12,7 +12,7 @@ body{
 a{color:inherit;text-decoration:none}
 
 .login-wrap{
-	background:url(Crater-Lake-4.jpg) no-repeat center;
+	background:url(ch-background.jpg) no-repeat;
 	background-attachment: fixed;
 }
 .login-html{
@@ -25,7 +25,6 @@ a{color:inherit;text-decoration:none}
 	padding:90px 70px 45px 60px;
 	background:rgba(40,57,101,.9);
 }
-
 .login-html .sign-in-htm,
 .login-html .sign-up-htm{
 	top:0;

@@ -1,0 +1,68 @@
+.menu--main {
+  display: block;
+  position: absolute;
+}
+.menu--main li {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  padding: 9px 15px;
+  background-color: #f8f9fa;
+  margin-right: -4px;
+  
+  font-size: 0.95rem;
+  width: 100%;
+  margin-left: 4%;
+  margin-bottom: auto;
+  line-height: 1.2rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 0.2rem;
+  background-clip: padding-box;
+  color: #3d3c40;
+  box-shadow: none;
+  outline: 0;
+  bottom: 0;
+  min-height: 41px !important;
+  /*padding: 9px 5px 9px 8px;*/
+}
+.menu--main li:hover {
+  background-color: #dde2e7;
+}
+.menu--main li:hover .sub-menu {
+  max-height: 300px;
+  visibility: visible;
+  bottom: 100%;
+  transition: all 0.4s linear;
+}
+.menu--main .sub-menu {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  box-shadow: none;
+  max-height: 0;
+  width: 150px;
+  overflow: hidden;
+}
+.menu--main .sub-menu li {
+  display: block;
+}
+
+.input-box_text1 {
+  font-size: 0.95rem;
+  width: 80%;
+  margin-left: 2%;
+  margin-bottom: auto;
+  line-height: 1.2rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 0.2rem;
+  background-clip: padding-box;
+  color: #3d3c40;
+  box-shadow: none;
+  outline: 0;
+  bottom: 0;
+  min-height: 41px !important;
+  padding: 9px 5px 9px 8px;
+  position: relative;
+   left: 4%;
+}

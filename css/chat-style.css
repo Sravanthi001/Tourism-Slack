@@ -191,6 +191,23 @@ main {
   overflow-y: auto;
   overflow-x: hidden;
 }
+.btn {
+  -webkit-border-radius: 46;
+  -moz-border-radius: 46;
+  border-radius: 46px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #4d394b;
+  padding: 5px 12px 5px 12px;
+  border: solid #ab9ba9 2px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #ab9ba9;
+  text-decoration: none;
+}
 
 .message-history {
   margin-left: 220px;
@@ -270,6 +287,9 @@ main {
   min-height: 36px;
 }
 
+
+
+
 .message_profile-pic {
   position: absolute;
   left: 0;
@@ -311,6 +331,9 @@ main {
   min-height: 1rem;
 }
 
+
+
+
 .user-menu {
   float: left;
   width: 220px;
@@ -331,7 +354,7 @@ main {
   border-radius: 0.2rem;
   width: 48px;
   height: 48px;
-  background-image: url(msg-profile.png);
+ /* background-image: url(msg-profile.png);*/
   background-size: cover;
   margin-right: 8px;
 }
@@ -342,7 +365,7 @@ main {
   font-weight: 900;
   line-height: 1.5rem;
   margin-top: 0.2rem;
-  max-width: 120px;
+  max-width: 180px;
 }
 
 .connection_icon {
@@ -361,7 +384,7 @@ main {
 
 .input-box_text {
   font-size: 0.95rem;
-  width: 90%;
+  width: 80%;
   margin-left: 2%;
   margin-bottom: auto;
   line-height: 1.2rem;
@@ -374,4 +397,37 @@ main {
   bottom: 0;
   min-height: 41px !important;
   padding: 9px 5px 9px 8px;
+}
+
+#first {
+    width: 200px;
+    text-align: left;
+  display: inline;
+  position: relative;
+  top: 0;
+  left: 0;
+  color: #babbbf;
+  font-size: 12px;
+  line-height: 1.2rem;
+  width: 36px;
+  margin-right: 0;
+  margin-left: 0;
+}
+#second {
+    width: 100px;
+    text-align: left;
+   display:none;
+  position: relative;
+  top: 0;
+  left: 0;
+  color: #babbbf;
+  font-size: 12px;
+  line-height: 1.2rem;
+  width: 36px;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.hover-message:hover #second{
+    display: inline;
 }
