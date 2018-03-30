@@ -1,9 +1,9 @@
 <?php
    include('session.php');
   ob_start();
-  $channel_id = $_GET['id'];
+  $channel_id= $_GET['id'];
   $page= $_GET['page'];
- 
+  
 	if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['searchSubmit'])) {
 		$searchUsername = $_POST['search_text']; 
 		//$arr = explode(' ',trim($searchUsername));
@@ -16,10 +16,9 @@
 		header("location: profile.php?user=$suser");
 
 	}
-	
+ 
 ?>
 
-<!DOCTYPE HTML>
 <html>
   <head>
     <meta charset="utf-8"/>
@@ -40,6 +39,7 @@
 	<link rel="stylesheet" href="css/blockquote.css">
   </head>
   <body>
+  
     <div class="header">
       <div class="team-menu">Tourism</div>
 	  <?php
@@ -54,11 +54,11 @@
 		   
 		   
 		   
-			$arcSql1 = "SELECT * FROM archive WHERE channel_id = '".$channel_id."'";
-		  $arcresult1 = mysqli_query($db,$arcSql1);
-		  $arcrow1 = mysqli_fetch_array($arcresult1,MYSQLI_ASSOC);
-		  $arccount1 = mysqli_num_rows($arcresult1);
-		  if($arccount1 == 1) {
+			$arcSql = "SELECT * FROM archive WHERE channel_id = '".$channel_id."'";
+		  $arcresult = mysqli_query($db,$arcSql);
+		  $arcrow = mysqli_fetch_array($arcresult,MYSQLI_ASSOC);
+		  $arccount = mysqli_num_rows($arcresult);
+		  if($arccount == 1) {
 		  ?>
 		  <script type="text/javascript">
 		  
@@ -67,36 +67,39 @@
 					$("#formid1 :input").prop("disabled", true);
 					$("#formid2 :input").prop("disabled", true);
 					$("#formid3 :input").prop("disabled", true);
-					
-					
+					$("#formid7 :input").prop("disabled", false);
+					$(".creepy").prop("disabled", false);
 				});
 			</script>
 			
 			<?php
 		  }
 		  
-		  if($arccount1 == 1)
+		  if($arccount == 1)
 		  {
+			?>
 		   
-	  ?>
-      <div class="channel-menu"><span class="channel-menu_name"><span class="channel-menu_prefix">#</span><?php echo $channelNm['channel_name']; ?> <img src="images/archive.jpg " height="27" width="35"/><font color=red > &nbsp&nbsp&nbsp  Channel is Archived (posting is disabled)</font></span></div>
-<?php	
+		   
+	  
+      <div class="channel-menu"><span class="channel-menu_name"><span class="channel-menu_prefix">#</span><?php echo $channelNm['channel_name']; ?>&nbsp&nbsp&nbsp<img src="images/archive.jpg " height="27" width="35"/><font color=red > &nbsp&nbsp&nbsp  Channel is Archived (posting is disabled)</font></span>
+			<?php	
 		  }
 		  else{
-			  ?>   
-			        <div class="channel-menu"><span class="channel-menu_name"><span class="channel-menu_prefix">#</span><?php echo $channelNm['channel_name']; ?> <img src="images/unarchive.jpg " height="27" width="35"/></span></div>
-<?php
+			  ?>
+		      <div class="channel-menu"><span class="channel-menu_name"><span class="channel-menu_prefix">#</span><?php echo $channelNm['channel_name']; ?>&nbsp&nbsp&nbsp<img src="images/unarchive.jpg " height="27" width="50"/></span>
+  <?php
 		  }
 		  ?>
-
-   </div>
+			
+			
+	  </div>
+	</div>
     <div class="main">
       <div class="listings">
-		<!-- Navigation Bar -->
+	  <!-- Navigation Bar -->
 		<div id="mySidenav" class="sidenav">
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <a href="invite.php">Invite</a>
-		  
 		  <?php
 		  $ncountSql = mysqli_query($db,"SELECT COUNT(invite_id) AS notification_count from invitation where receiver_name='".$login_session."'");
 		$usern_count1 = mysqli_fetch_array($ncountSql, MYSQLI_ASSOC);
@@ -115,38 +118,11 @@
 		  }
 		  ?>
 		  
-		  
 		  <a href="updateProfile.php">Update Profile</a>
-		  <!--<a href="archive.php" id="arc">Archive</a>-->
+		  <a href="archive.php" id="arc">Archive</a>
 		  
-		  <?php
-			$arcSql = "SELECT * FROM archive WHERE channel_id = '".$channel_id."'";
-		  $arcresult = mysqli_query($db,$arcSql);
-		  $arcrow = mysqli_fetch_array($arcresult,MYSQLI_ASSOC);
-		  $arccount = mysqli_num_rows($arcresult);
-		  if($arccount == 1) {
-		  ?>
-		  <script type="text/javascript">
 		  
-				$(document).ready(function(){
-					
-					$("#formid :input").prop("disabled", true);
-					$("#formid1 :input").prop("disabled", true);
-					$("#formid2 :input").prop("disabled", true);
-					$("#formid3 :input").prop("disabled", true);
-					$("#formid7 :input").prop("disabled", false);
-					$(".creepy").prop("disabled", false);
-					//$("#formid8").prop("disabled", false);
-					
-					
-					
-				});
-			</script>
-			
-			<?php
-		  }
-			?>
-		<!--  <a href="unarchive.php" id="unarc">Unarchive</a>-->
+		  <a href="unarchive.php" id="unarc">Unarchive</a>
 		   <?php
 			$unarcSql = "SELECT * FROM archive WHERE channel_id = '".$channel_id."'";
 		  $unarcresult = mysqli_query($db,$unarcSql);
@@ -160,7 +136,7 @@
 					$("#formid :input").prop("enabled", true);
 					$("#formid1 :input").prop("enabled", true);
 					$("#formid2 :input").prop("enabled", true);
-					$("#formid3 :input").prop("enabled", true);		
+					$("#formid3 :input").prop("enabled", true);
 				});
 				/*document.getElementById("unarc").onclick = enableScreen;
 
@@ -176,7 +152,9 @@
 			<?php
 		  }
 			?>
-				<!--<a href="editMembership.php" id="member">Edit Membership</a> -->
+				<a href="editMembership.php" id="member">Edit Membership</a>
+				
+				<a href="dashboard.php" id="member">Dashboard</a>
 				<a href="help.php" id="member">Help</a>
 			
 			<br></br>
@@ -202,36 +180,37 @@
 		<script>
 			
 			$(document).ready(function(){  
-			  $('#search_text').keyup(function(){  
-				   var query = $(this).val();  
-				   if(query != '')  
-				   {  
-						$.ajax({  
-							 url:"searchData.php",  
-							 method:"POST",  
-							 data:{query:query},  
-							 success:function(data)  
-							 {  
-								  $('#result').fadeIn();  
-								  $('#result').html(data);  
-							 }  
-						});  
-				   }  
-			  });  
-			  $(document).on('click', 'li', function(){  
-				  $('#search_text').val($(this).text());  
-				   $('#result').fadeOut();  
-				 //   var formAction = $('#search_text').attr('action');
-				//	$('#search_text').attr('action', formAction + id);
-			  });  
-		 });  
-		 $( '#searchForm' ).each(function(){
-			this.reset();
-		});
+      $('#search_text').keyup(function(){  
+           var query = $(this).val();  
+           if(query != '')  
+           {  
+                $.ajax({  
+                     url:"searchData.php",  
+                     method:"POST",  
+                     data:{query:query},  
+                     success:function(data)  
+                     {  
+                          $('#result').fadeIn();  
+                          $('#result').html(data);  
+                     }  
+                });  
+           }  
+      });  
+      $(document).on('click', 'li', function(){  
+          $('#search_text').val($(this).text());  
+           $('#result').fadeOut();  
+		 //   var formAction = $('#search_text').attr('action');
+		//	$('#search_text').attr('action', formAction + id);
+      });  
+ });  
+ $( '#searchForm' ).each(function(){
+    this.reset();
+});
 		</script>
 		
 	   <!-- End Navigation Bar -->
-        <div class="listings_channels">
+        
+		<div class="listings_channels">
           <h2 class="listings_header">Channels <span>
 		  
 		  <a style="color: white; text-decoration:none; margin-left: 6.0em;" href=addChannels.php >
@@ -256,9 +235,7 @@
 			 // while($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
 				  
 		  ?>
-		  
-		  
-		  <li class="channel"><a class="channel_name"><span class="read"></span><span><span class="prefix">#</span><a style="color: white; text-decoration:none;" href=chatPage.php?id=<?php echo $getchid['channel_id']; ?>&page=1 ><?php echo $getchid['channel_name']; ?></span></a></li>           
+		  <li class="channel"><a class="channel_name"><span class="read"></span><span><span class="prefix">#</span><a style="color: white; text-decoration:none;" href=adminchatPage.php?id=<?php echo $getchid['channel_id']; ?>&page=1 ><?php echo $getchid['channel_name']; ?></span></a></li>           
 		   <?php 
 		   }
 		  ?>
@@ -268,7 +245,7 @@
         <div class="listings_direct-messages">
           <h2 class="listings_header">Direct Messages</h2>
           <ul class="channel_list">
-			<?php
+		  <?php
 			$sqldm = "SELECT username FROM users where username !='".$login_session."' ";
 			  $retUsers = mysqli_query($db,$sqldm);
 			  while($getUsers = mysqli_fetch_array($retUsers,MYSQLI_ASSOC))
@@ -278,23 +255,15 @@
           <?php 
 		   }
 		  ?>
-          </ul>
+		  </ul>
         </div>
       </div>
+	
       <div class="message-history" id="formid">
 		<!-- Pagination -->
 		<?php
 		//	$limit = 2;  
 		
-		$validmember = mysqli_query($db,"SELECT username from membership where channel_name='".$channelNm['channel_name']."'");
-		$validMemCnt = 0;
-		while($validMemRes = mysqli_fetch_array($validmember, MYSQLI_ASSOC)){
-		 //$validMemCnt = mysqli_num_rows($validMemRes);
-			// echo $validMemCnt;
-			if($validMemRes['username'] == $login_session){
-				$validMemCnt = 1;
-			}
-		}
 	
 		// define how many results you want per page
 		 $results_per_page = 5;
@@ -316,24 +285,20 @@
 		
 		// determine the sql LIMIT starting number for the results on the displaying page
 		$this_page_first_result = ($page-1)*$results_per_page;
-		
-	//	"SELECT * FROM menuitem LIMIT " . $offset . "," . $items_per_page;
-		
-		if($page >=1 && $page <= $number_of_pages && $validMemCnt == 1)
+		if($page >=1 && $page <= $number_of_pages)
 	{
 		$result = mysqli_query($db,"SELECT * FROM msg where channel_id= $channel_id ORDER BY STR_TO_DATE (`timestamp`,'%Y-%m-%d %H:%i:%s')LIMIT $this_page_first_result, $results_per_page ");
 		while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				
-				
 			//get avatar of each user
-			$avatarSql = mysqli_query($db,"SELECT avatar, username, gravatar, profile_flag from users where username='".$row['username']."'");
+			$avatarSql = mysqli_query($db,"SELECT avatar, username,gravatar,profile_flag from users where username='".$row['username']."'");
 			while($rowAvatar = mysqli_fetch_array($avatarSql, MYSQLI_ASSOC)) {
+					
 					
 					$testSql = mysqli_query($db,"SELECT SUM(up_count) AS like_count from voting_count where msg_id='".$row['msg_id']."'");
 					$likecount = mysqli_fetch_array($testSql, MYSQLI_ASSOC);
 					
 					$like_count = $likecount['like_count'];
-					//$getCount = "SELECT up_count, down_count from voting_count";
 					
 					$testSql2 = mysqli_query($db,"SELECT SUM(down_count) AS dislike_count from voting_count where msg_id='".$row['msg_id']."'");
 					$dislikecount = mysqli_fetch_array($testSql2, MYSQLI_ASSOC);
@@ -343,21 +308,20 @@
 			<div class="message"><form action = "" method = "post">
 				<a class="message_profile-pic" href="">
 				
-					<?php 
+				<?php 
 		
-						$header_response = get_headers($rowAvatar['gravatar'], 1);
-						if($header_response[0]!== "HTTP/1.1 404 Not Found" && $rowAvatar['profile_flag'] == 1)
-							{		
-						?>
-						<img class="message_profile-pic" src="<?php echo $rowAvatar['gravatar']; ?>"/>
+				$header_response = get_headers($rowAvatar['gravatar'], 1);
+				if($header_response[0]!== "HTTP/1.1 404 Not Found" && $rowAvatar['profile_flag'] == 1)
+					{		
+				?>
+				<img class="message_profile-pic" src="<?php echo $rowAvatar['gravatar']; ?>"/>
+				
+				<?php
 						
-						<?php
-								
-						}
-							else
-							{
-								
-								if (filter_var($rowAvatar['avatar'], FILTER_VALIDATE_URL)) 
+				}
+					else
+					{
+						if (filter_var($rowAvatar['avatar'], FILTER_VALIDATE_URL)) 
 								{ 
 									
 
@@ -371,24 +335,21 @@
 							<?php
 									}
 								}else{
-
-						?>
-						  <img class="message_profile-pic" src="avatar/<?php echo $rowAvatar['avatar']; ?>"/>
-						  
-						 <?php
-								}
-							}
-					?>
+				?>
+				  <img class="message_profile-pic" src="avatar/<?php echo $rowAvatar['avatar']; ?>"/>
+				  
+				 <?php
+						}
+					}
+				?>
+				
+					
 				</a>
 				
 				<div class="hover-message" id=<?php echo $row['msg_id']; ?> >
-				
-				
 				<a class="message_username" href=""><?php echo $row['username']; ?></a>
 				<span class="message_timestamp"><?php echo date('M j Y g:i A', strtotime($row['timestamp'])); ?></span>
-				
-					
-					
+			
 			
 				<label class="voteUp"><?php echo $like_count; ?></label>
 				<input type="submit" class="up_button" style="display: none; border: none; background: none; ">
@@ -402,11 +363,13 @@
 					<input type="image" id=<?php echo $row['msg_id']; ?> src="images/thumbs-down.png" height="20" width="20" class="dislike" onclick="this.disabled=true;document.getElementsByClassName('like')[0].disabled=false;f1(this);window.location.reload();" value="2"/>
 				</input>
 				
-				
-				
+				<input type="submit" name="delete" style="display: none; border: none; background: none;" id=<?php echo $row['msg_id']; ?> >
+					<input type="image" src="images/delete.png" height="25" width="25" id=<?php echo $row['msg_id']; ?> onclick="deletePost(this);window.location.reload();"/>
+				</input>
 				</div>
 			</form>
-				<?php
+			
+			<?php
 				//Check Local files
 				if(file_exists("msg_images/".$row['message'])){
 					if (preg_match('/(\.jpg|\.png|\.bmp|\.gif)$/', $row['message']) || preg_match('(.jpg|.png|.bmp|.gif)', $row['message'])=== 1)
@@ -445,17 +408,16 @@
 					}
 				}
 				}
+				
 				//Check Code 
 				else if(substr( $row['message'], 0, 5 ) === "/code"){
 			?>
 					<span class="message_star"></span><blockquote><p><?php echo nl2br(substr(strstr($row['message']," "), 1)); ?></p></blockquote>
 			<?php	
 				}
-					else if(substr( $row['message'], 0, 3 ) === "/me"){
+				else if(substr( $row['message'], 0, 3 ) === "/me"){
+					$meline = substr(strstr($row['message']," "), 1);
 			?>
-	      <?php 
-	      $meline = substr(strstr($row['message']," "), 1);
-	      ?>
 					<span class="message_star"></span><span><font face="Comic Sans MS" color="red"><b><?php echo $meline; ?></b></font></span>
 			<?php	
 				}
@@ -484,6 +446,7 @@
 			?>			
 				
 				<br>
+				
 				<div>
 				<input type="submit" class="btn btn-primary rep" style="display: none; border: none; background: none;">
 					<input type="image" class ="creepy" src="images/reply.png" height="20" width="20" id=<?php echo $row['msg_id']; ?>  onclick="toggleBox(this);" />
@@ -492,12 +455,13 @@
 				$userreply_count1 = mysqli_fetch_array($replycountSql, MYSQLI_ASSOC);
 		
 				$userreply_count = $userreply_count1['userreply_count'];
-				
 				if($userreply_count != 0)
 				{
 				?>
+				
 				</input>
 				<input type="submit" class ="creepy" id ="formid8" name="no of replies" value ="<?php echo $userreply_count; ?> <?php if($userreply_count ==1){?>Reply <?php  } else{?>Replies <?php } ?>" height="20" width="20" id=<?php echo $row['msg_id']; ?>  onclick="toggleBox(this);" />
+				
 				<?php
 				}
 				?>
@@ -506,9 +470,9 @@
 				</div>
 				<div class="comment_form"  style="display: none;">
 					<form class="comment_reply1"  method="post" action="">
+				
 				<!--<form class="comment_reply" data-id="" method="post" action="">
 					<input type="hidden" class="hidden" value="" class="post_id">-->
-					
 				<div class='menu--main' style="margin-left: 0.5cm;" id="formid2">
 				<!--<ul class='menu--main'>
 					<li>
@@ -547,15 +511,18 @@
 								}
 						</script>
 					
-				</div>
-				
+			</div>
 				<div id="content" style="margin-left: 0.7cm;">
 				<?php	//echo "<input name=\"child-msg\" id=\"child-input-".$row['msg_id']."\" class=\"input-box_text\" type=\"text\"/>";?>
+				
 				<?php	echo "<textarea name=\"child-msg\" id=\"child-input-".$row['msg_id']."\" class=\"input-box_text\" ></textarea>";?>
 				
 				<input type="submit" class="button1" value="reply" name="reply" id=<?php echo $row['msg_id']; ?> onclick="f2(this);window.location.reload();"/>
 				
+				
+				
 				</div>
+			
 				
 				<!-- //REPLY part-->	
 				
@@ -565,14 +532,13 @@
 						$replySql = mysqli_query($db,"SELECT * FROM replies where msg_id= '".$row["msg_id"]."' ORDER BY STR_TO_DATE(`timestamp`,'%Y-%m-%d %H:%i:%s')");
 						while($childrow = mysqli_fetch_array($replySql, MYSQLI_ASSOC)) {
 								
-							//get avatar of each user
-							$avatarSql1 = mysqli_query($db,"SELECT avatar, username, gravatar, profile_flag from users where username='".$childrow['username']."'");
-							while($rowAvatar1 = mysqli_fetch_array($avatarSql1, MYSQLI_ASSOC)) {
-									//<img class="message_profile-pic" src="avatar/<?php echo $rowAvatar['avatar']; "/>
-							
-							/// child message like and dislike counting 
-							
-							$testSql3 = mysqli_query($db,"SELECT SUM(up_count) AS c_like_count from child_voting_count where child_msg_id='".$childrow['reply_id']."'");
+						//get avatar of each user
+						$avatarSql1 = mysqli_query($db,"SELECT avatar, username, gravatar, profile_flag from users where username='".$childrow['username']."'");
+						while($rowAvatar1 = mysqli_fetch_array($avatarSql1, MYSQLI_ASSOC)) {
+								
+						/// child message like and dislike counting 
+						
+						$testSql3 = mysqli_query($db,"SELECT SUM(up_count) AS c_like_count from child_voting_count where child_msg_id='".$childrow['reply_id']."'");
 					$likecount = mysqli_fetch_array($testSql3, MYSQLI_ASSOC);
 					
 					$c_like_count = $likecount['c_like_count'];
@@ -591,6 +557,7 @@
 			<!--	<div class="message">-->
 				<form action = "" method = "post">
 					<a class="message_profile-pic" href="">
+					
 						<?php 
 		
 							$header_response = get_headers($rowAvatar1['gravatar'], 1);
@@ -604,7 +571,6 @@
 							}
 								else
 								{
-									
 									if (filter_var($rowAvatar1['avatar'], FILTER_VALIDATE_URL)) 
 									{	 
 									
@@ -620,7 +586,6 @@
 							<?php
 										}
 									}	else{
-
 							?>
 							  <img class="message_profile-pic" src="avatar/<?php echo $rowAvatar1['avatar']; ?>"/>
 							  
@@ -628,6 +593,7 @@
 									}
 								}
 						?>
+							
 					</a>
 				
 				<div class="hover-message1" id=<?php echo $childrow['reply_id']; ?> >
@@ -645,9 +611,11 @@
 				<label class="voteUp"><?php echo $c_dislike_count; ?></label>
 				<input type="submit" class="down_button" style="display: none; border: none; background: none; ">
 					<input type="image" id=<?php echo $childrow['reply_id']; ?> src="images/thumbs-down.png" height="20" width="20" class="dislike" onclick="this.disabled=true;document.getElementsByClassName('like')[0].disabled=false;f3(this);window.location.reload();" value="2"/>
-				
 				</input>
 				
+				<input type="submit" name="delete" style="display: none; border: none; background: none; " id=<?php echo $childrow['reply_id']; ?> >
+					<input type="image" src="images/delete.png" height="25" width="25" id=<?php echo $childrow['reply_id']; ?> onclick="deleteChildPost(this);window.location.reload();"/>
+				</input>
 				
 			</form>
 				<?php
@@ -712,37 +680,30 @@
 			<?php
 			}
 			?>	
+				
 				</div>
 			<!--	</div> -->
 						<?php 
 								//}	
-								
 							}
 							
 						}
 					?>
 							
 				</div>			
-				</form>		
+				</form>	
 							
+				
 				</div>
-						</div>	
 							
+						</div>	
 							
 							
 						
 						<?php 
-						
 								}	
 							}
-					}
-					
-				 else if($validMemCnt == 0){
-			?>
-			<br></br>
-		<div> <p><font size="7"> User is not member of this channel </font> </p> </div>
-		<?php
-		}
+							}
 		else {
 		?>
 		<br></br>
@@ -751,7 +712,8 @@
 		
 		<?php
 		
-		}			?>
+		}	
+	      		?>
 		<br></br><br></br>
 		
 		<?php
@@ -762,31 +724,35 @@
 		?>
 		 <form method="post" name="input" action=" " id="formid7">
 		<?php
-			if($page != 1)
-			{	
-			echo '<a  id="page1'.$page.'" href="chatPage.php?id='.$channel_id.'&page='.($page-1) .'"> <font size="4">&nbsp&nbsp &laquo; </font></a>';	
-			}
+						if($page != 1)
+						{	
+							echo '<a  id="page1'.$page.'" href="adminchatPage.php?id='.$channel_id.'&page='.($page-1) .'"> <font size="4">&nbsp&nbsp &laquo; </font></a>';	
+						}
 		
 		
-		?>
+						?>
 	 
-	 <a><font size="3">&nbsp&nbsp Page &nbsp<?php echo $page?> of &nbsp<?php echo $number_of_pages?>&nbsp </font> </a>
+	 
+	 
+	 
+	 <a><font size="3"> &nbsp&nbsp Page &nbsp <?php echo $page?> of &nbsp <?php echo $number_of_pages?>&nbsp </font> </a>
+	 
 	 
 		<?php				
-
-		if($page != $number_of_pages)
-		{
-		echo '<a id="page1'.$page.'" href="chatPage.php?id='.$channel_id.'&page='.($page+1) .'"><font size="4">&raquo;&nbsp&nbsp</font></a>';	
-		}
+					if($page != $number_of_pages)
+					{
+					echo '<a id="page1'.$page.'" href="adminchatPage.php?id='.$channel_id.'&page='.($page+1) .'"><font size="4">&raquo;&nbsp &nbsp</font></a>';	
+					}
 		
 			
 		?>
 					
-		<!--- TEXT BOX FR PAGE N0 -->
-		
-		<a><font size="3"> Go to page: &nbsp <input type="text" method ="post" name="pgno" size="1" ></input>
-		<input type="submit" class="button2" value="GO" name="GO" onclick="window.location.reload();" ></input></font></a>
-							
+					<!--- TEXT BOX FR PAGE N0 -->
+					
+					<a><font size="3">&nbsp &nbspGo to page:&nbsp <input type="text" method ="post" name="pgno" size="1" ></input>
+					<input type="submit" class="button2" value="GO" name="GO" onclick="window.location.reload();" ></input></font></a>
+					
+					
 		<?php
 		
 		
@@ -794,40 +760,40 @@
 			
 				$page1 = $_POST["pgno"];
 				$page = ceil( $_POST["pgno"]);
-				
-			if($page >=1 && $page <=$number_of_pages)
+				if($page >=1 && $page <=$number_of_pages)
 				{
-				 echo '<a style="display:none" id="ac" href="chatPage.php?id='.$channel_id.'&page='.$page .'">' . $page . '</a> ';
-				 ?>
+				 echo '<a style="display:none" id="ac" href="adminchatPage.php?id='.$channel_id.'&page='.$page .'">' . $page . '</a> ';
+		 ?>
 				 <script>
 				 document.getElementById('ac').click();
 				 </script>
-			 <?php
+			<?php
 				}
 				else 
 				{
 					
-					?>
+				?>
 					</div>
 					<br> </br> 
 					<div > <span><font size="4"> Page <?php echo $page1 ?> doesnot exist. Enter valid page number! </font> </span></div>
 					
-					<?php
+				<?php
 				}
 					
 			
-			}
-			?>
-			
-		</form>
-				<?php /*
-				// display the links to the pages
-				echo '<div class="pagination">';
+				}
+				?>
+					
+					</form>
+	      
+	      
+							
+				<?php	/*	echo '<div class="pagination">';
 						echo '<ul class="nav">';
-						echo '<a id="page1'.$page.'" href="chatPage.php?id='.$channel_id.'&page='.(1) .'">First</a>';
+						echo '<a id="page1'.$page.'" href="adminchatPage.php?id='.$channel_id.'&page='.(1) .'">First</a>';
 						if($page != 1)
 						{	
-							echo '<a id="page1'.$page.'" href="chatPage.php?id='.$channel_id.'&page='.($page-1) .'">&laquo;</a>';	
+							echo '<a id="page1'.$page.'" href="adminchatPage.php?id='.$channel_id.'&page='.($page-1) .'">&laquo;</a>';	
 						}
 							// display the links to the pages
 						//$first=1;
@@ -837,7 +803,7 @@
 						
 						//for($j=$first;$j<=$last;$j++){
 					 // echo '<li><a href="adminchatPage.php?page=' . $page . '">' . $page . '</a> </li>';
-					   echo '<a id="page'.$i.'" href="chatPage.php?id='.$channel_id.'&page='.$i .'">' . $i . '</a> ';
+					   echo '<a id="page'.$i.'" href="adminchatPage.php?id='.$channel_id.'&page='.$i .'">' . $i . '</a> ';
 						//}
 					//	$first=$last;
 					//	$last = $first + 2;
@@ -846,28 +812,30 @@
 						
 					if($page != $number_of_pages)
 					{
-					echo '<a id="page1'.$page.'" href="chatPage.php?id='.$channel_id.'&page='.($page+1) .'">&raquo;</a>';	
+					echo '<a id="page1'.$page.'" href="adminchatPage.php?id='.$channel_id.'&page='.($page+1) .'">&raquo;</a>';	
 					}
-					echo '<a id="page1'.$page.'" href="chatPage.php?id='.$channel_id.'&page='.($number_of_pages) .'">Last</a>';
+					echo '<a id="page1'.$page.'" href="adminchatPage.php?id='.$channel_id.'&page='.($number_of_pages) .'">Last</a>';
 					echo '</ul>';
 					 echo '</div>';
 							
-						//}*/
-					?>
+						//}*/ ?>
+					
 					
 					<script>
 					//for pagination
-				/*	var selector = '.nav li a';
+					/*var selector = '.nav li a';
 						$(selector).on('click', function(){
 						$(selector).removeClass('active');
 						$(this).addClass('active');
 					});*/
+					
+					/*var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
+                console.log(pageId);
+                $('#'+pageId).addClass('active');*/
 
-						var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
-						console.log(pageId);
-						$('#'+pageId).addClass('active');
 
 					</script>
+					
 					
 					<script>
 								$(document).ready(function() {
@@ -886,6 +854,7 @@
 						});
 						style="float: right;" 
 						*/
+						
 						function toggleBox(msgBox){  
 							//jQuery(document).ready(function(){
 								var parent_id = $(msgBox).attr('id');
@@ -961,6 +930,48 @@
 							});
 						}
 						
+						function deletePost(deleteButton){  
+					
+							 var parent_id = $(deleteButton).attr('id');
+							 //var input_val=$("#child-input-"+parent_id).val();
+							// console.log(input_val);
+					
+							//return a;
+							var d= {'parent_id':parent_id}
+							$.ajax({
+								type: "POST",
+								url: 'deletePost.php',
+								 data:d,
+								dataType: 'text',
+								success: function(data)
+								{
+								   // $(".voteUp").html(data);
+								  // alert(data);
+								}
+							});
+						}
+						
+						
+						function deleteChildPost(deleteChildButton){  
+					
+							 var child_id = $(deleteChildButton).attr('id');
+							 //var input_val=$("#child-input-"+parent_id).val();
+							// console.log(input_val);
+					
+							//return a;
+							var d= {'child_id':child_id}
+							$.ajax({
+								type: "POST",
+								url: 'deletePost.php',
+								 data:d,
+								dataType: 'text',
+								success: function(data)
+								{
+								   // $(".voteUp").html(data);
+								  // alert(data);
+								}
+							});
+						}
 		</script>
 		
 		<script type="text/javascript">
@@ -986,15 +997,17 @@
 		</script>
 		
        </div>
-    </div>
+	 
+	</div>
     <div class="footer">
       <div class="user-menu">
 	  
+	  
 		<?php
-			$usernameSql = mysqli_query($db,"SELECT username, avatar, gravatar, profile_flag from users where username='".$login_session."'");
+			$usernameSql = mysqli_query($db,"SELECT username, avatar,gravatar, profile_flag from users where username='".$login_session."'");
 			while($rowRes = mysqli_fetch_array($usernameSql, MYSQLI_ASSOC)) {
 		
-			$header_response = get_headers($rowRes['gravatar'], 1);
+				$header_response = get_headers($rowRes['gravatar'], 1);
 				if($header_response[0]!== "HTTP/1.1 404 Not Found" && $rowRes['profile_flag'] == 1)
 					{		
 				?>
@@ -1005,6 +1018,7 @@
 				}
 					else
 					{
+						
 						if (filter_var($rowRes['avatar'], FILTER_VALIDATE_URL)) 
 									{	 
 									
@@ -1028,6 +1042,8 @@
 					}
 				?>
 				
+		
+		
 		<div class="user-profile" >
 			<ul>
 			<li><a style="color: #ab9ba9; text-decoration:none;" href=profile.php?user=<?php echo $rowRes['username']; ?> >Profile</a></li>
@@ -1049,6 +1065,7 @@
 	  </script>
 	  
 	  <div class="input-box">
+		
 		<div class='menu--main' style="left:15%;position:absolute;display:inline-block;" id="formid3">
 			<!--<ul class='menu--main'>
 				<li>
@@ -1056,13 +1073,13 @@
 					<ul class='sub-menu'>
 					 <!-- <li><a href="localImage.php" style="color: black; text-decoration:none;">Local Image</a></li>
 					  <li><a href="codeSnippet.php" style="color: black; text-decoration:none;">Code Snippet</a></li>-->
-					<!--  <li><a href="localImage.php" style="color: black; text-decoration:none;">Local Image</a></li>
+					 <!-- <li><a href="localImage.php" style="color: black; text-decoration:none;">Local Image</a></li>
 					</ul>
 				  </li>
 				 </ul>-->
-				<!--  <form method="post" name="input" action="localImage.php"></form> -->
-				<input type="submit" name="localImage" id=<?php echo $channel_id; ?> style="display: none; border: none; background: none; " >
-				 <input type="image" src="images/attach.png" height="35" width="35" id=<?php echo $channel_id; ?> onclick="addLocalImg(this);window.location.reload();" />
+				<!-- <form method="post" name="input" action="localImage.php"> </form>-->
+				<input type="submit" name="localImage" id=<?php echo $channel_id; ?> style="display: none; border: none; background: none;" >
+				 <input type="image" src="images/attach.png" height="35" width="35" id=<?php echo $channel_id; ?> onclick="addLocalImg(this);window.location.reload();"/>
 				</input>
 				
 				<script>
@@ -1089,27 +1106,45 @@
 						}
 				</script>
 				 
-				 
 		</div>
-		
 		<form method="post" name="input" action=" " id="formid1">
-        <!--<input name="message" class="input-box_text" type="text"/>-->
 		
+      <!--   <input name="message" class="input-box_text1" type="text"/>  -->
+
 		<textarea name="message" class="input-box_text1"></textarea>
 		
-		<input type="submit" class="button2" value="Post" name="post" onclick="window.location.reload();" style="position:absolute"/>
 		
+		<input type="submit" class="button2" value="Post" name="post" onclick="window.location.reload();" style="position:absolute"/>
+			
 		<?php
 		
 		date_default_timezone_set('America/New_York');
 		//access channel_id
 		//echo date("l jS \of F Y h:i:s A") . "<br>";
 		//$time =  time();
+		//&& strlen($_POST["message"] != 0)
 		$date = date('Y-m-d H:i:s');
 		
-		if(isset($_POST["message"])){
+		if(isset($_POST["message"]) ){
+			if($_POST["message"] =="/archive"){
+				  $arcsql = "SELECT * FROM archive WHERE channel_id = '$channel_id'";
+				  $arcresult = mysqli_query($db,$arcsql);
+				  $arcrow = mysqli_fetch_array($arcresult,MYSQLI_ASSOC);
+				  $arccount = mysqli_num_rows($arcresult);
+				  
+				  if($arccount == 0) {
+				$archiveSql = "INSERT INTO archive (channel_id,channel_name) VALUES ('".$channel_id."','".$channelNm['channel_name']."')";
 			
-			if($_POST["message"] =="/who"){
+				if ($db->query($archiveSql) === TRUE) {
+				
+					$error=" Channel is archived";
+				} else {
+				
+					$error = "Error in archiving";
+				}
+				  }
+			}
+			else if($_POST["message"] =="/who"){
 				  $whoUsers = "/who ";
 				  $membersql = "SELECT username from membership where channel_name='".$channelNm['channel_name']."' AND username != '".$login_session."' ";
 				  $memberresult = mysqli_query($db,$membersql);
@@ -1122,8 +1157,7 @@
 					  }
 					  $whoUsers .=" and you.";
 				  }
-				 else{
-					
+				  else{
 					$whoUsers .=" Only you.";
 					}
 				  $whoUsersql = "INSERT INTO msg (channel_id, username, timestamp, message)
@@ -1164,7 +1198,9 @@
 				}
 				  }
 			}
+			
 			else{
+			
 				$sql = "INSERT INTO msg (channel_id, username, timestamp, message)
 				VALUES ('".$channel_id."','".$login_session."','".$date."','".addslashes(htmlspecialchars($_POST["message"]))."')";
 				
@@ -1175,7 +1211,6 @@
 			} else {
 			//echo "Error: " . $sql . "<br>" . $db->error."";
 			}
-			
 			}
 			header("Refresh: 0");
 			exit;
@@ -1183,7 +1218,6 @@
 		?>
 		
 		</form>
-		
       </div>
     </div>
   </body>

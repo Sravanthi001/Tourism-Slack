@@ -2,7 +2,7 @@
    define('DB_SERVER', 'localhost');
    define('DB_USERNAME', 'admin');
    define('DB_PASSWORD', 'M0n@rch$');
-   define('DB_DATABASE', 'cs518-test');
+   define('DB_DATABASE', 'tourism-slack');
    $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 
    if (!$db) {
